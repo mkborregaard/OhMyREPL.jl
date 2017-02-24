@@ -1,6 +1,6 @@
 # Passes
 
-In `OhMyREPL` each plugin that changes the way text is printed to the REPL is implemented as a **pass**. A **pass** is defined as a function (or a call overloaded type) that takes a list of Julia tokens from [`Tokenize.jl`](https://github.com/KristofferC/Tokenize.jl), a list of `ANSIToken`s, the position of the cursor and sets the `ANSIToken`s to however the pass wants the Julia tokens to be printed. Both the [Syntax highlighting](@ref) and the [Bracket highlighting](@ref) are implemented as passses.
+In `OhMyREPL` each plugin that changes the way text is printed to the REPL is implemented as a **pass**. A **pass** is defined as a function (or a call overloaded type) that takes a list of Julia tokens from [`Tokenize.jl`](https://github.com/KristofferC/Tokenize.jl), a list of `Crayon`s from [`Crayons.jl`](https://github.com/KristofferC/Crayons.jl), the position of the cursor and sets the `Crayon`s to however the pass wants the Julia tokens to be printed. Both the [Syntax highlighting](@ref) and the [Bracket highlighting](@ref) are implemented as passses.
 
 All the passes are registered in a global pass handler. To show all the passes use `OhMyREPL.showpasses()`:
 
@@ -55,7 +55,7 @@ julia> tokens = collect(Tokenize.tokenize(str))
   1,43-1,42:        ENDMARKER         "" 
 ```
 
-We then create a vector of `Crayob`s of the same length as the Julia tokens and fill it with empty tokens. .
+We then create a vector of `Crayon`s of the same length as the Julia tokens and fill it with empty tokens. .
 
 ```
 crayons = Vector{Crayon}(length(tokens));
@@ -76,7 +76,7 @@ To print the original string with the updated vector of `Crayon`s we use the `Oh
 
 ![](print_ansi.png)
 
-Each registered and enabled pass does this updating and the contributions from each pass to the `ANSIToken` vector is merged in to a separate vector. After each pass is done, the result is printed to the REPL.
+Each registered and enabled pass does this updating and the contributions from each pass to the `Crayon` vector is merged in to a separate vector. After each pass is done, the result is printed to the REPL.
 
 ## Creating a pass
 
