@@ -15,7 +15,6 @@ makedocs(
             "features/prompt.md",
             ],
         "Internals" => Any[
-            "internals/ansitoken.md",
             "internals/passes.md"
             ]
     ]
